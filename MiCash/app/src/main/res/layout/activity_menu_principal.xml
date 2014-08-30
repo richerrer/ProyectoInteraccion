@@ -1,0 +1,98 @@
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.miCash.espol.activity.MenuPrincipal"
+        android:background="#fff0f0f0">
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:baselineAligned="false">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Transacciones Anteriores"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical"
+                android:textAlignment="center" />
+
+
+
+            <!--<Button
+                 android:layout_width="match_parent"
+                 android:layout_height="75dp"
+                 android:text="@string/op_ingreso_gasto"
+                 android:id="@+id/opIngresoGasto"
+                 android:layout_gravity="center_horizontal"
+                 android:layout_marginTop="50dp"
+                 android:background="@drawable/botonpulsado"
+                 android:clickable="true"
+                 android:layout_marginBottom="5dp"
+                 android:textColor="#ffffffff"
+                 android:singleLine="false"
+                 android:textStyle="bold" />
+
+             <Button
+                 android:layout_width="match_parent"
+                 android:layout_height="75dp"
+                 android:text="@string/op_reporte"
+                 android:id="@+id/opReporte"
+                 android:layout_gravity="center_horizontal"
+                 android:background="@drawable/botonpulsado"
+                 android:layout_marginTop="5dp"
+                 android:layout_marginBottom="5dp"
+                 android:clickable="true"
+                 android:textColor="#ffffffff"
+                 android:textStyle="bold" />
+
+             <Button
+                 android:layout_width="match_parent"
+                 android:layout_height="75dp"
+                 android:text="@string/op_proyeccion"
+                 android:id="@+id/opProyeccion"
+                 android:layout_gravity="center_horizontal"
+                 android:background="@drawable/botonpulsado"
+                 android:layout_marginTop="5dp"
+                 android:layout_marginBottom="5dp"
+                 android:clickable="true"
+                 android:textColor="#ffffffff"
+                 android:textStyle="bold" />
+
+             <Button
+                 android:layout_width="match_parent"
+                 android:layout_height="75dp"
+                 android:text="@string/op_configuraciones"
+                 android:id="@+id/opConfiguraciones"
+                 android:layout_gravity="center_horizontal"
+                 android:background="@drawable/botonpulsado"
+                 android:layout_marginTop="5dp"
+                 android:layout_marginBottom="5dp"
+                 android:clickable="true"
+                 android:textColor="#ffffffff"
+                 android:textStyle="bold" />-->
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ListView
+        android:id="@+id/drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:background="#EEE"/>
+</android.support.v4.widget.DrawerLayout>

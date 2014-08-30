@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*"
+        android:background="@drawable/b">
+        <TableRow>
+            <TextView
+                android:text="Descripción:"
+                android:layout_span="2"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+            <TextView
+                android:layout_span="2"
+                android:id="@+id/transactions_description"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="Categoría:"
+                android:layout_span="2"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+            <TextView
+                android:layout_span="2"
+                android:id="@+id/transactions_categoria"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="Fecha:"
+                android:layout_span="2"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+            <TextView
+                android:layout_span="2"
+                android:id="@+id/transactions_fecha"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="Valor:"
+                android:layout_span="2"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+            <TextView
+                android:layout_span="2"
+                android:id="@+id/transactions_valor"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </TableRow>
+
+
+</TableLayout>

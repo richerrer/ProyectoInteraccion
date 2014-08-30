@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.miCash.espol.activity" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name="com.miCash.espol.global.GlobalClass"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".Start"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MyActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+        <activity
+            android:name=".Registrarse"
+            android:label="@string/title_activity_registrase" >
+        </activity>
+        <activity
+            android:name=".EjemploBaseActivity"
+            android:label="@string/title_activity_ejemplo_base" >
+        </activity>
+        <activity
+            android:name=".MenuPrincipal"
+            android:label="@string/title_activity_menu_principal" >
+        </activity>
+        <activity
+            android:name=".IngresoGasto"
+            android:label="@string/title_activity_ingreso_gasto" >
+        </activity>
+    </application>
+
+</manifest>

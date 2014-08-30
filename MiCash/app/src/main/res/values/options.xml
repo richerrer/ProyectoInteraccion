@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="options_array">
+        <item>Añadir Ingreso/Gasto</item>
+        <item>Reporte</item>
+        <item>Proyección</item>
+        <item>Configuraciones</item>
+        <item>Cerrar Sesión</item>
+    </string-array>
+</resources>

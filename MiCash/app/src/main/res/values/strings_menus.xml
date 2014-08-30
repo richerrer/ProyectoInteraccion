@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="op_ingreso_gasto">Añadir Ingreso/Gasto</string>
+    <string name="op_reporte">Reporte</string>
+    <string name="op_proyeccion">Proyección</string>
+    <string name="op_configuraciones">Configuraciones</string>
+    <string name="op_alarma">Alarma</string>
+    <string name="op_lugares">Personalizar Lugares</string>
+    <string name="op_moneda">Definir Moneda</string>
+    <string name="op_perfil">Editar Perfil</string>
+
+</resources>

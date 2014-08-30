@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="valor">$ 2.56</string>
+    <string name="descripcion">Ingresar una breve descripción del ingreso o gasto</string>
+    <string name="lbl_categoria">Categoría</string>
+    <string name="lbl_numTransaccion">Cantidad</string>
+    <string name="lbl_valor">Valor</string>
+
+</resources>
