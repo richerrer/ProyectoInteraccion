@@ -22,7 +22,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v4:18.0.+'
+    compile 'com.android.support:appcompat-v7:18.0.+'
     compile files('build/postgresql-9.3-1102.jdbc4.jar')
-    compile "com.android.support:support-v4:18.0.+"
-    compile "com.android.support:appcompat-v7:18.0.+"
 }

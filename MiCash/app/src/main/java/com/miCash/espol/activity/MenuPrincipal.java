@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -12,16 +13,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.miCash.espol.dao.TransaccionDao;
+import com.miCash.espol.dao.UsuarioDao;
 import com.miCash.espol.global.GlobalClass;
+import com.miCash.espol.menu.ArrayAdapterMenu;
+import com.miCash.espol.menu.Item;
 import com.miCash.espol.others.Cookie;
+import com.miCash.espol.pojos.Transaccion;
+import com.miCash.espol.pojos.Usuario;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class MenuPrincipal extends Activity {
 
@@ -29,6 +39,11 @@ public class MenuPrincipal extends Activity {
     private DrawerLayout drawerLayout;
     private String[] opciones;
     private ViewGroup layout;
+    private ArrayList<Item> items ;
+    private ProgressBar spinner;
+    private ScrollView scrollView;
+    private  TextView textView;
+    private final SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,30 +51,7 @@ public class MenuPrincipal extends Activity {
         setContentView(R.layout.activity_menu_principal);
         globalVariable = (GlobalClass) getApplicationContext();
         inicializarComponentes();
-
-        LayoutInflater inflater = LayoutInflater.from(this);
-        int id = R.layout.layout_all_transactions;
-
-        for(int i=0;i<10;i++){
-            TableLayout tableLayout = (TableLayout)inflater.inflate(id,null,false);
-            TextView textView = (TextView) tableLayout.findViewById(R.id.transactions_description);
-            textView.setText("Cumple");
-
-            textView = (TextView) tableLayout.findViewById(R.id.transactions_categoria);
-            textView.setText("Entretenimiento");
-
-            textView = (TextView) tableLayout.findViewById(R.id.transactions_fecha);
-            textView.setText("20/01/2014");
-
-            textView = (TextView) tableLayout.findViewById(R.id.transactions_valor);
-            textView.setText(" - $10");
-            textView.setBackgroundColor(Color.RED);
-            if(i==8||i==9||i==7){
-                textView.setText(" + $15");
-                textView.setBackgroundColor(Color.GREEN);
-            }
-            layout.addView(tableLayout);
-        }
+        new GetConnection(this).execute();
     }
 
 
@@ -86,21 +78,32 @@ public class MenuPrincipal extends Activity {
         opciones = getResources().getStringArray(R.array.options_array);
         ListView drawer = (ListView) findViewById(R.id.drawer);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,opciones));
+        items = new ArrayList<Item>();
+        items.add(new Item(R.drawable.ic_action_edit,"Editar Perfil"));
+        items.add(new Item(R.drawable.ic_action_paste, "Reporte"));
+        items.add(new Item(R.drawable.ic_action_new,"Añadir Ingreso/Gasto"));
+        //items.add(new Item(R.drawable.ic,"Proyección"));
+        items.add(new Item(R.drawable.ic_action_alarms,"Configurar Alarma"));
+        items.add(new Item(R.drawable.ic_action_location_searching,"Nuevo Lugar Favorito"));
+        items.add(new Item(R.drawable.ic_action_favorite,"Ver Lugares Favoritos"));
+        items.add(new Item(R.drawable.ic_action_secure,"Cerrar Sesión"));
+        ArrayAdapterMenu adapter = new ArrayAdapterMenu(this,items);
+        drawer.setAdapter(adapter);
+        //drawer.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,opciones));
         drawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
                 drawerLayout.closeDrawers();
-                if(opciones[arg2].equals("Añadir Ingreso/Gasto")){
+                if(items.get(arg2).getTexto().equals("Añadir Ingreso/Gasto")){
                     Intent ingresoGasto = new Intent(MenuPrincipal.this, IngresoGasto.class);
                     startActivity(ingresoGasto);
                 }
 
-                if(opciones[arg2].equals("Cerrar Sesión")){
+                if(items.get(arg2).getTexto().equals("Cerrar Sesión")){
                     Cookie.writeCookie("", MenuPrincipal.this);
-                    globalVariable.setUsername(null);
+                    globalVariable.setUsuario(null);
                     Intent iniciarSesion = new Intent(MenuPrincipal.this, Start.class);
                     iniciarSesion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(iniciarSesion);
@@ -112,7 +115,81 @@ public class MenuPrincipal extends Activity {
 
     private void inicializarComponentes(){
         inicializarDrawer();
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        textView = (TextView)findViewById(R.id.text_transacciones_anteriores);
+        scrollView = (ScrollView)findViewById(R.id.scroll_menu_principal);
         layout = (ViewGroup) findViewById(R.id.content);
     }
 
+    public void agregarTransaccionesAnteriores(ArrayList<Transaccion> transacciones){
+        LayoutInflater inflater = LayoutInflater.from(this);
+        int id = R.layout.layout_all_transactions;
+        for(Transaccion transaction : transacciones){
+            TableLayout tableLayout = (TableLayout)inflater.inflate(id,null,false);
+            TextView textView = (TextView) tableLayout.findViewById(R.id.transactions_description);
+            textView.setText(transaction.getDescripcion());
+
+            textView = (TextView) tableLayout.findViewById(R.id.transactions_categoria);
+            textView.setText(transaction.getCategoria());
+
+            textView = (TextView) tableLayout.findViewById(R.id.transactions_fecha);
+            textView.setText(date.format(transaction.getFecha().getTime()));
+
+            textView = (TextView) tableLayout.findViewById(R.id.transactions_valor);
+            if(transaction.isIngreso()){
+                textView.setText(" + $"+transaction.getValor().toString());
+                textView.setBackgroundColor(Color.GREEN);
+            }
+            else{
+                textView.setText(" - $"+transaction.getValor().toString());
+                textView.setBackgroundColor(Color.RED);
+            }
+            layout.addView(tableLayout);
+        }
+    }
+
+
+    private class GetConnection extends AsyncTask<String, Integer, ArrayList<Transaccion>> {
+        Context context;
+        public GetConnection(Context context){this.context = context;}
+        @Override
+        protected ArrayList<Transaccion> doInBackground(String... params){
+            ArrayList<Transaccion> transacciones = null;
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            transacciones = TransaccionDao.getInstance().getTransactions(globalVariable.getUsuario());
+            return transacciones;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            spinner.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.GONE);
+            scrollView.setVisibility(View.GONE);
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Transaccion> transaccions){
+            spinner.setVisibility(View.GONE);
+            showElements();
+            if(TransaccionDao.getInstance().getConection()!=null) {
+                if (transaccions != null) {
+                    agregarTransaccionesAnteriores(transaccions);
+                } else{
+                    Toast.makeText(getApplicationContext(), "No existen transacciones", Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                Toast.makeText(getApplicationContext(), "Error no se pudo conectar con el servidor", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        public void showElements(){
+            textView.setVisibility(View.VISIBLE);
+            scrollView.setVisibility(View.VISIBLE);
+        }
+
+    }
 }

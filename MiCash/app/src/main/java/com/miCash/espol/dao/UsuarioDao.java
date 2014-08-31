@@ -33,7 +33,7 @@ public class UsuarioDao{
             ResultSet result =  statement.executeQuery(query);
             while (result.next()) {
                 usuario = new Usuario(result.getString(2),result.getString(3));
-                usuario.setIdEstudiante(result.getLong(1));
+                usuario.setIdusuario(result.getLong(1));
             }
             return  usuario;
         }catch (Exception e){return null;}
@@ -48,7 +48,7 @@ public class UsuarioDao{
             ResultSet result =  statement.executeQuery(query);
             while (result.next()) {
                 usuario = new Usuario(result.getString(2),result.getString(3));
-                usuario.setIdEstudiante(result.getLong(1));
+                usuario.setIdusuario(result.getLong(1));
             }
             return  usuario;
         }catch (Exception e){return null;}

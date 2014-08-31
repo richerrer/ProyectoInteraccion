@@ -4,90 +4,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.miCash.espol.activity.MenuPrincipal"
-        android:background="#fff0f0f0">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:baselineAligned="false">
 
-        <LinearLayout
-            android:id="@+id/content"
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:baselineAligned="false">
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            android:layout_marginTop="150dp" />
+        <TextView
+            android:id="@+id/text_transacciones_anteriores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Transacciones Anteriores"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical"
+            android:textAlignment="center" />
 
-            <TextView
-                android:layout_width="wrap_content"
+
+        <ScrollView
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/scroll_menu_principal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.miCash.espol.activity.MenuPrincipal"
+            android:background="#fff0f0f0">
+            <LinearLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Transacciones Anteriores"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"
-                android:gravity="center_vertical"
-                android:textAlignment="center" />
+                android:orientation="vertical"
+                android:baselineAligned="false">
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
 
 
-
-            <!--<Button
-                 android:layout_width="match_parent"
-                 android:layout_height="75dp"
-                 android:text="@string/op_ingreso_gasto"
-                 android:id="@+id/opIngresoGasto"
-                 android:layout_gravity="center_horizontal"
-                 android:layout_marginTop="50dp"
-                 android:background="@drawable/botonpulsado"
-                 android:clickable="true"
-                 android:layout_marginBottom="5dp"
-                 android:textColor="#ffffffff"
-                 android:singleLine="false"
-                 android:textStyle="bold" />
-
-             <Button
-                 android:layout_width="match_parent"
-                 android:layout_height="75dp"
-                 android:text="@string/op_reporte"
-                 android:id="@+id/opReporte"
-                 android:layout_gravity="center_horizontal"
-                 android:background="@drawable/botonpulsado"
-                 android:layout_marginTop="5dp"
-                 android:layout_marginBottom="5dp"
-                 android:clickable="true"
-                 android:textColor="#ffffffff"
-                 android:textStyle="bold" />
-
-             <Button
-                 android:layout_width="match_parent"
-                 android:layout_height="75dp"
-                 android:text="@string/op_proyeccion"
-                 android:id="@+id/opProyeccion"
-                 android:layout_gravity="center_horizontal"
-                 android:background="@drawable/botonpulsado"
-                 android:layout_marginTop="5dp"
-                 android:layout_marginBottom="5dp"
-                 android:clickable="true"
-                 android:textColor="#ffffffff"
-                 android:textStyle="bold" />
-
-             <Button
-                 android:layout_width="match_parent"
-                 android:layout_height="75dp"
-                 android:text="@string/op_configuraciones"
-                 android:id="@+id/opConfiguraciones"
-                 android:layout_gravity="center_horizontal"
-                 android:background="@drawable/botonpulsado"
-                 android:layout_marginTop="5dp"
-                 android:layout_marginBottom="5dp"
-                 android:clickable="true"
-                 android:textColor="#ffffffff"
-                 android:textStyle="bold" />-->
-
-        </LinearLayout>
-    </ScrollView>
 
     <ListView
         android:id="@+id/drawer"

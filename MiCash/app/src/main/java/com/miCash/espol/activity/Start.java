@@ -40,7 +40,7 @@ public class Start extends Activity {
         setContentView(R.layout.activity_start);
         inicializarComponentes();
         globalVariable = (GlobalClass) getApplicationContext();
-        if(globalVariable.getUsername()!=null){
+        if(globalVariable.getUsuario()!=null){
             Intent menuPrincipal = new Intent(this,MenuPrincipal.class);
             this.startActivity(menuPrincipal);
             finish();
@@ -103,7 +103,7 @@ public class Start extends Activity {
             else {//Si el logeo del usuario se lo hace por cookie
                 usuario = UsuarioDao.getInstance().getUsuario(params[0]);
             }
-            globalVariable.setUsername(usuario);
+            globalVariable.setUsuario(usuario);
             return usuario;
         }
 

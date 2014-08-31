@@ -11,10 +11,10 @@ public class GlobalClass extends Application {
 
     private Usuario usuario;
 
-    public void setUsername(Usuario usuario){
+    public void setUsuario(Usuario usuario){
         this.usuario = usuario;
     }
-    public Usuario getUsername(){
+    public Usuario getUsuario(){
         return this.usuario;
     }
 }
