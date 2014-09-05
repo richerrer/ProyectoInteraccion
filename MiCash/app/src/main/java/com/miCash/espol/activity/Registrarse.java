@@ -20,7 +20,7 @@ import com.miCash.espol.pojos.Usuario;
 
 public class Registrarse extends Activity {
 
-    EditText email,username,password,confirmPassword;
+    EditText email,username,password,confirmPassword,nombre,apellido;
     Button registrar;
     ProgressBar spinner;
     LinearLayout layout3,layout4,layout5;
@@ -33,6 +33,8 @@ public class Registrarse extends Activity {
         email = (EditText)findViewById(R.id.txt_email);
         username = (EditText)findViewById(R.id.txt_username);
         password = (EditText)findViewById(R.id.txt_password);
+        nombre = (EditText)findViewById(R.id.txt_nombre);
+        apellido = (EditText)findViewById(R.id.txt_apellido);
         confirmPassword = (EditText)findViewById(R.id.txt_passwordAgain);
         registrar = (Button)findViewById(R.id.confirmarRegistro);
         registrar.setOnClickListener(new EventoMenuPrincipal(this, 0));
@@ -59,6 +61,16 @@ public class Registrarse extends Activity {
         if (TextUtils.isEmpty(confirmPassword.getText().toString())) {
             confirmPassword.setError("Se requiere llenar este campo");
             focusView = confirmPassword;
+            cancelar = true;
+        }
+        if (TextUtils.isEmpty(nombre.getText().toString())) {
+            nombre.setError("Se requiere llenar este campo");
+            focusView = nombre;
+            cancelar = true;
+        }
+        if (TextUtils.isEmpty(apellido.getText().toString())) {
+            apellido.setError("Se requiere llenar este campo");
+            focusView = apellido;
             cancelar = true;
         }
         return cancelar;
@@ -89,7 +101,7 @@ public class Registrarse extends Activity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            insertion = UsuarioDao.getInstance().addUsuario(params[0],params[1]);
+            insertion = UsuarioDao.getInstance().addUsuario(params[0],params[1],params[2],params[3]);
             return insertion;
         }
 
@@ -145,7 +157,7 @@ public class Registrarse extends Activity {
                     boolean cancelar = false;
                     if(fillData()) cancelar = true;
                     if(verifyPassword())    cancelar = true;
-                    if(!cancelar) new GetConnection(contexto).execute(username.getText().toString(),password.getText().toString());
+                    if(!cancelar) new GetConnection(contexto).execute(username.getText().toString(),password.getText().toString(),nombre.getText().toString(),apellido.getText().toString());
                     break;
                 }
 

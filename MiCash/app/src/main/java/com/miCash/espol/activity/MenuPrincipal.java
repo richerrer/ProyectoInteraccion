@@ -1,6 +1,7 @@
 package com.miCash.espol.activity;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -23,6 +25,7 @@ import android.widget.Toast;
 
 import com.miCash.espol.dao.TransaccionDao;
 import com.miCash.espol.dao.UsuarioDao;
+import com.miCash.espol.dataTime.DatePickerFragment;
 import com.miCash.espol.global.GlobalClass;
 import com.miCash.espol.menu.ArrayAdapterMenu;
 import com.miCash.espol.menu.Item;
@@ -32,11 +35,13 @@ import com.miCash.espol.pojos.Usuario;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MenuPrincipal extends Activity {
 
     private GlobalClass globalVariable = null;
     private DrawerLayout drawerLayout;
+    private Button pickDate;
     private String[] opciones;
     private ViewGroup layout;
     private ArrayList<Item> items ;
@@ -51,7 +56,7 @@ public class MenuPrincipal extends Activity {
         setContentView(R.layout.activity_menu_principal);
         globalVariable = (GlobalClass) getApplicationContext();
         inicializarComponentes();
-        new GetConnection(this).execute();
+        searchTransactions(Calendar.getInstance());
     }
 
 
@@ -72,6 +77,17 @@ public class MenuPrincipal extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        ((DatePickerFragment)newFragment).setContext(this);
+        newFragment.show(getFragmentManager(), "datePicker");
+    }
+
+    public void searchTransactions(Calendar calendar) {
+        layout.removeAllViews();
+        new GetConnection(this).execute(calendar);
     }
 
     private void inicializarDrawer(){
@@ -119,11 +135,13 @@ public class MenuPrincipal extends Activity {
         textView = (TextView)findViewById(R.id.text_transacciones_anteriores);
         scrollView = (ScrollView)findViewById(R.id.scroll_menu_principal);
         layout = (ViewGroup) findViewById(R.id.content);
+        pickDate = (Button)findViewById(R.id.pick_date);
     }
 
     public void agregarTransaccionesAnteriores(ArrayList<Transaccion> transacciones){
         LayoutInflater inflater = LayoutInflater.from(this);
         int id = R.layout.layout_all_transactions;
+
         for(Transaccion transaction : transacciones){
             TableLayout tableLayout = (TableLayout)inflater.inflate(id,null,false);
             TextView textView = (TextView) tableLayout.findViewById(R.id.transactions_description);
@@ -149,18 +167,18 @@ public class MenuPrincipal extends Activity {
     }
 
 
-    private class GetConnection extends AsyncTask<String, Integer, ArrayList<Transaccion>> {
+    private class GetConnection extends AsyncTask<Calendar, Integer, ArrayList<Transaccion>> {
         Context context;
         public GetConnection(Context context){this.context = context;}
         @Override
-        protected ArrayList<Transaccion> doInBackground(String... params){
+        protected ArrayList<Transaccion> doInBackground(Calendar... params){
             ArrayList<Transaccion> transacciones = null;
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            transacciones = TransaccionDao.getInstance().getTransactions(globalVariable.getUsuario());
+            transacciones = TransaccionDao.getInstance().getTransactions(globalVariable.getUsuario(),params[0]);
             return transacciones;
         }
 
@@ -169,6 +187,7 @@ public class MenuPrincipal extends Activity {
             spinner.setVisibility(View.VISIBLE);
             textView.setVisibility(View.GONE);
             scrollView.setVisibility(View.GONE);
+            pickDate.setVisibility(View.GONE);
         }
 
         @Override
@@ -179,7 +198,7 @@ public class MenuPrincipal extends Activity {
                 if (transaccions != null) {
                     agregarTransaccionesAnteriores(transaccions);
                 } else{
-                    Toast.makeText(getApplicationContext(), "No existen transacciones", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "No existen transacciones para la fecha seleccionada", Toast.LENGTH_SHORT).show();
                 }
             }else{
                 Toast.makeText(getApplicationContext(), "Error no se pudo conectar con el servidor", Toast.LENGTH_SHORT).show();
@@ -189,6 +208,7 @@ public class MenuPrincipal extends Activity {
         public void showElements(){
             textView.setVisibility(View.VISIBLE);
             scrollView.setVisibility(View.VISIBLE);
+            pickDate.setVisibility(View.VISIBLE);
         }
 
     }

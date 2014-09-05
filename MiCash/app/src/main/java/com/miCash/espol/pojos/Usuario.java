@@ -14,6 +14,8 @@ public class Usuario {
     private long idusuario;
     private String username;
     private String password;
+    private String nombre;
+    private String apellido;
 
     public Usuario(String username,String Password){
         this.username = username;
@@ -44,4 +46,19 @@ public class Usuario {
         return this.password;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
 }

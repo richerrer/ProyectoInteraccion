@@ -5,6 +5,8 @@ import com.miCash.espol.pojos.Transaccion;
 import com.miCash.espol.pojos.Usuario;
 
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -26,8 +28,12 @@ public class TransaccionDao {
         return instance;
     }
 
-    public ArrayList<Transaccion> getTransactions(Usuario usuario){
-        String query = "select * from \"transaccion\" where idusuario = '"+usuario.getIdUsusario()+"' and fecha = '2014/08/30'";
+    public ArrayList<Transaccion> getTransactions(Usuario usuario,Calendar fecha){
+       // String query = "select * from \"transaccion\" where idusuario = '"+usuario.getIdUsusario()+"' and fecha = '"+fecha.get(Calendar.YEAR)+"/"+
+                //fecha.get(Calendar.MONTH)+"/"+fecha.get(Calendar.DATE)+"'";
+        String query = "select * from \"transaccion\" where idusuario = '"+usuario.getIdUsusario()+"' and date_part('month', fecha) = "+(fecha.get(Calendar.MONTH)+1)+
+                " and date_part('year', fecha) = "+fecha.get(Calendar.YEAR)+" order by idtransaccion desc";
+        //String query = "select * from \"transaccion\" where idusuario = '"+usuario.getIdUsusario()+"'";
         ArrayList<Transaccion> transaccions = new ArrayList<Transaccion>();
         Transaccion transaccion;
         try{
@@ -45,6 +51,25 @@ public class TransaccionDao {
             return  transaccions;
         }catch (Exception e){return null;}
 
+    }
+
+    public boolean addTransaction(Transaccion transaccion){
+        String query ="INSERT INTO \"transaccion\"(descripcion, categoria, valor, ingreso, fecha, idusuario) VALUES (?,?,?,?,?,?)";
+
+        int filasAfectadas =0;
+        try{
+            PreparedStatement statement = conection.prepareStatement(query);
+            statement.setString(1,transaccion.getDescripcion());
+            statement.setString(2,transaccion.getCategoria());
+            statement.setBigDecimal(3, transaccion.getValor());
+            statement.setBoolean(4, transaccion.isIngreso());
+            statement.setDate(5, new java.sql.Date(transaccion.getFecha().getTime().getTime()));
+            statement.setLong(6,transaccion.getIdusuario());
+            filasAfectadas = statement.executeUpdate();
+        }catch (Exception e){e.printStackTrace();}
+        if(filasAfectadas!=0)
+            return true;
+        return false;
     }
 
 

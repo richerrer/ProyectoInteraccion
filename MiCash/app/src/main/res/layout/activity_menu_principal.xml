@@ -31,7 +31,13 @@
             android:layout_marginBottom="10dp"
             android:gravity="center_vertical"
             android:textAlignment="center" />
-
+        <Button
+            android:id="@+id/pick_date"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha de Consulta"
+            android:onClick="showDatePickerDialog"
+            android:layout_marginBottom="2dp" />
 
         <ScrollView
             xmlns:tools="http://schemas.android.com/tools"

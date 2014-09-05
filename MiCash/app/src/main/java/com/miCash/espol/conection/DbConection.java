@@ -9,7 +9,7 @@ import java.sql.SQLException;
  */
 public class DbConection {
     private static DbConection instance = null;
-    private static final String url="jdbc:postgresql://192.168.1.103:5432/MiCash";
+    private static final String url="jdbc:postgresql://192.168.1.104:5432/MiCash";
     private static final String usuario="postgres";
     private static final String password="1234";
     private static Connection conection = null;

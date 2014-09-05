@@ -49,20 +49,24 @@ public class UsuarioDao{
             while (result.next()) {
                 usuario = new Usuario(result.getString(2),result.getString(3));
                 usuario.setIdusuario(result.getLong(1));
+                usuario.setNombre(result.getString(4));
+                usuario.setApellido(result.getString(5));
             }
             return  usuario;
         }catch (Exception e){return null;}
 
     }
 
-    public boolean addUsuario(String username,String password){
-        String query ="INSERT INTO \"usuario\"(username, password) VALUES (?,?)";
+    public boolean addUsuario(String username,String password,String nombre,String apellido){
+        String query ="INSERT INTO \"usuario\"(username, password, nombre, apellido) VALUES (?,?,?,?)";
         Usuario usuario = null;
         int filasAfectadas =0;
         try{
             PreparedStatement statement = conection.prepareStatement(query);
             statement.setString(1,username);
             statement.setString(2,password);
+            statement.setString(3,nombre);
+            statement.setString(4,apellido);
             filasAfectadas = statement.executeUpdate();
         }catch (Exception e){e.printStackTrace();}
         if(filasAfectadas!=0)
