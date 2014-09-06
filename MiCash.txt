@@ -1,0 +1,43 @@
+-- Table: usuario
+
+-- DROP TABLE usuario;
+
+CREATE TABLE usuario
+(
+  idusuario bigserial NOT NULL,
+  username character varying(15) NOT NULL,
+  password character varying(15) NOT NULL,
+  nombre character varying(30) NOT NULL,
+  apellido character varying(30) NOT NULL,
+  CONSTRAINT usuario_pk PRIMARY KEY (idusuario),
+  CONSTRAINT usuario_unique_username UNIQUE (username)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE usuario
+  OWNER TO postgres;
+
+-- Table: transaccion
+
+-- DROP TABLE transaccion;
+
+CREATE TABLE transaccion
+(
+  idtransaccion bigserial NOT NULL,
+  descripcion text,
+  categoria character varying(50) NOT NULL,
+  valor numeric,
+  ingreso boolean NOT NULL,
+  fecha timestamp without time zone,
+  idusuario bigint NOT NULL,
+  CONSTRAINT transaccion_pkey PRIMARY KEY (idtransaccion),
+  CONSTRAINT transaccion_idusuario_fkey FOREIGN KEY (idusuario)
+      REFERENCES usuario (idusuario) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE transaccion
+  OWNER TO postgres;
