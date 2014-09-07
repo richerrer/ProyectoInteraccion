@@ -28,5 +28,6 @@
     <string name="title_activity_otro">otro</string>
     <string name="title_activity_menu_principal">MenuPrincipal</string>
     <string name="title_activity_ingreso_gasto">IngresoGasto</string>
+    <string name="title_activity_registrar_lugar">RegistrarLugar</string>
 
 </resources>

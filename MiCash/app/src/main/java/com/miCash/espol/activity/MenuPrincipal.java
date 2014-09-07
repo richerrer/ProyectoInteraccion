@@ -116,7 +116,10 @@ public class MenuPrincipal extends Activity {
                     Intent ingresoGasto = new Intent(MenuPrincipal.this, IngresoGasto.class);
                     startActivity(ingresoGasto);
                 }
-
+                if(items.get(arg2).getTexto().equals("Nuevo Lugar Favorito")){
+                    Intent registrarLugar = new Intent(MenuPrincipal.this, RegistrarLugar.class);
+                    startActivity(registrarLugar);
+                }
                 if(items.get(arg2).getTexto().equals("Cerrar Sesión")){
                     Cookie.writeCookie("", MenuPrincipal.this);
                     globalVariable.setUsuario(null);

@@ -44,6 +44,10 @@
             android:name=".IngresoGasto"
             android:label="@string/title_activity_ingreso_gasto" >
         </activity>
+        <activity
+            android:name=".RegistrarLugar"
+            android:label="@string/title_activity_registrar_lugar" >
+        </activity>
     </application>
 
 </manifest>

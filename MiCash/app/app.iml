@@ -62,8 +62,8 @@
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="support-v4-18.0.0" level="project" />
-    <orderEntry type="library" exported="" name="postgresql-9.3-1102.jdbc4" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-18.0.0" level="project" />
+    <orderEntry type="library" exported="" name="postgresql-9.3-1102.jdbc41" level="project" />
   </component>
 </module>
 

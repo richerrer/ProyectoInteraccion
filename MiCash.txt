@@ -41,3 +41,43 @@ WITH (
 );
 ALTER TABLE transaccion
   OWNER TO postgres;
+
+
+
+-- Table: lugar
+
+
+-- DROP TABLE lugar;
+
+
+CREATE TABLE lugar
+(
+  
+  idlugar bigserial NOT NULL,
+
+  nombre text,
+
+  categoria character varying(50) NOT NULL,
+
+  latitud bigint NOT NULL,
+
+  longitud bigint NOT NULL,
+ 
+  idusuario bigint NOT NULL,
+ 
+  CONSTRAINT lugar_pkey PRIMARY KEY (idlugar),
+  
+  CONSTRAINT lugar_idusuario_fkey FOREIGN KEY (idusuario)
+     
+      REFERENCES usuario (idusuario) MATCH SIMPLE
+
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+WITH (
+  OIDS=FALSE
+)
+;
+ALTER TABLE lugar
+ 
+  OWNER TO postgres;
