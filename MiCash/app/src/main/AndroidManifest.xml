@@ -48,6 +48,10 @@
             android:name=".RegistrarLugar"
             android:label="@string/title_activity_registrar_lugar" >
         </activity>
+        <activity
+            android:name=".ConfigurarAlarma"
+            android:label="@string/title_activity_configurar_alarma" >
+        </activity>
     </application>
 
 </manifest>
