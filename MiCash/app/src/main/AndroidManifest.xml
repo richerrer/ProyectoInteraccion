@@ -52,6 +52,10 @@
             android:name=".ConfigurarAlarma"
             android:label="@string/title_activity_configurar_alarma" >
         </activity>
+        <activity
+            android:name=".EditarPerfil"
+            android:label="@string/title_activity_editar_perfil" >
+        </activity>
     </application>
 
 </manifest>

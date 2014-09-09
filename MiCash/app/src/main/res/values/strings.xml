@@ -13,6 +13,8 @@
     <string name="correo_electronico">correo electrónico</string>
     <string name="username">Username</string>
     <string name="contrasena">Contraseña</string>
+    <string name="newContrasena">Nueva contraseña</string>
+    <string name="oldContrasena">Contraseña anterior</string>
     <string name="repitacontrasena">Repita la contraseña</string>
     <string name="contrasena_confirmar">Confirmar contraseña</string>
     <string name="perfil">PERFIL</string>
@@ -30,5 +32,6 @@
     <string name="title_activity_ingreso_gasto">IngresoGasto</string>
     <string name="title_activity_registrar_lugar">RegistrarLugar</string>
     <string name="title_activity_configurar_alarma">Configurar Alarma</string>
+    <string name="title_activity_editar_perfil">Editar Perfil</string>
 
 </resources>
