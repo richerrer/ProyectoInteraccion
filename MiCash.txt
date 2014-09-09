@@ -54,23 +54,14 @@ CREATE TABLE lugar
 (
   
   idlugar bigserial NOT NULL,
-
   nombre text,
-
   categoria character varying(50) NOT NULL,
-
   latitud bigint NOT NULL,
-
   longitud bigint NOT NULL,
- 
   idusuario bigint NOT NULL,
- 
   CONSTRAINT lugar_pkey PRIMARY KEY (idlugar),
-  
   CONSTRAINT lugar_idusuario_fkey FOREIGN KEY (idusuario)
-     
       REFERENCES usuario (idusuario) MATCH SIMPLE
-
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 
@@ -79,5 +70,25 @@ WITH (
 )
 ;
 ALTER TABLE lugar
- 
+  OWNER TO postgres;
+
+
+
+-- Table: alarma
+-- DROP TABLE alarma;
+
+CREATE TABLE alarma
+(
+  idalarma bigserial NOT NULL,
+  hora int NOT NULL,
+  minutos int NOT NULL,
+  sonido character varying(50) NOT NULL,
+  precision integer NOT NULL,
+  activacion boolean NOT NULL,
+  CONSTRAINT alarma_pkey PRIMARY KEY (idalarma)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE alarma
   OWNER TO postgres;

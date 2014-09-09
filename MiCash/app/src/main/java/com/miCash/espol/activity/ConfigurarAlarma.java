@@ -31,7 +31,7 @@ public class ConfigurarAlarma extends Activity{
     TextView timeShown;
     Spinner sonidos, precisiones;
     ToggleButton activacion;
-    LinearLayout layout0,layout2,layout3,layout4;
+    LinearLayout layout0;
 
     String sonidoSeleccionado, precisionSeleccionada;
     int hora, min;
@@ -61,9 +61,9 @@ public class ConfigurarAlarma extends Activity{
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 sonidoSeleccionado = arg0.getItemAtPosition(arg2).toString();
 
-                if (sonidoSeleccionado.equals("Bells")){mpBells.start();}
-                if (sonidoSeleccionado.equals("Different")){mpXperia.start();}
-                if (sonidoSeleccionado.equals("Tick Tock")){mpTick.start();}
+                if (sonidoSeleccionado.equals("Bells")){stopSounds();mpBells.start();}
+                if (sonidoSeleccionado.equals("Different")){stopSounds();mpXperia.start();}
+                if (sonidoSeleccionado.equals("Tick Tock")){stopSounds();mpTick.start();}
 
             }
 
@@ -75,19 +75,23 @@ public class ConfigurarAlarma extends Activity{
     }
 
     public void stopSounds(){
-        if (mpBells.isPlaying() || mpXperia.isPlaying() || mpTick.isPlaying()) {
+        if (mpBells.isPlaying()){
             mpBells.stop();
             try {
                 mpBells.prepare();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        if (mpXperia.isPlaying()){
             mpXperia.stop();
             try {
                 mpXperia.prepare();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        if (mpTick.isPlaying()) {
             mpTick.stop();
             try {
                 mpTick.prepare();
@@ -126,16 +130,10 @@ public class ConfigurarAlarma extends Activity{
         precisiones = (Spinner) findViewById(R.id.precisiones);
         activacion = (ToggleButton) findViewById(R.id.btn_activacion);
         layout0 = (LinearLayout) findViewById(R.id.layout0);
-        layout2 = (LinearLayout) findViewById(R.id.layout2);
-        layout3 = (LinearLayout) findViewById(R.id.layout3);
-        layout4 = (LinearLayout) findViewById(R.id.layout4);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.sonidos, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sonidos.setAdapter(adapter);
-
-
-
 
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.precisiones, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -143,6 +141,7 @@ public class ConfigurarAlarma extends Activity{
         precisiones.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                stopSounds();
                 precisionSeleccionada = arg0.getItemAtPosition(arg2).toString();
             }
 
@@ -155,9 +154,8 @@ public class ConfigurarAlarma extends Activity{
         cancelar.setOnClickListener(new EventoAlarma(this, 1));
         timeShown.setOnClickListener(new EventoAlarma(this, 2));
         layout0.setOnClickListener(new EventoAlarma(this, 3));
-        layout2.setOnClickListener(new EventoAlarma(this, 4));
-        layout3.setOnClickListener(new EventoAlarma(this, 5));
-        layout4.setOnClickListener(new EventoAlarma(this, 6));
+        activacion.setOnClickListener(new EventoAlarma(this, 4));
+        //precisiones.setOnClickListener(new EventoAlarma(this, 5));
     }
 
     public boolean isAM(int h){
@@ -246,28 +244,6 @@ public class ConfigurarAlarma extends Activity{
                     break;
                 }
                 case 4:{
-                    sonidos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                            sonidoSeleccionado = arg0.getItemAtPosition(arg2).toString();
-
-                            if (sonidoSeleccionado.equals("Bells")){mpBells.start();}
-                            if (sonidoSeleccionado.equals("Different")){mpXperia.start();}
-                            if (sonidoSeleccionado.equals("Tick Tock")){mpTick.start();}
-
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> arg0) {
-                        }
-                    });
-                    break;
-                }
-                case 5:{
-                    stopSounds();
-                    break;
-                }
-                case 6:{
                     stopSounds();
                     break;
                 }
